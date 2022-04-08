@@ -24,23 +24,23 @@ function onEachFeature(feature, layer) {
 
 // Assign color ranges that will be based on the signifigance scale below
 function getColor(d) {
-    return d > 500 ? '#1b9e77' :
-        d > 400 ? '#d95f02' :
-            d > 300 ? '#7570b3' :
-                d > 200 ? '#e7298a' :
-                    d > 150 ? '#66a61e' :
-                        d > 100 ? '#e6ab02' :
-                            d > 50 ? '#a6761d' :
+    return d > 90 ? '#1b9e77' :
+        d > 70 ? '#d95f02' :
+            d > 50 ? '#7570b3' :
+                d > 40 ? '#e7298a' :
+                    d > 30 ? '#66a61e' :
+                        d > 20 ? '#e6ab02' :
+                            d > 10 ? '#a6761d' :
                                 '#666666';
 }
 
 // set the style of each feature using values reurned from the geoJson
 function styleFeature(feature, latlng) {
     return L.circleMarker(latlng, {
-        fillOpacity: feature.geometry.coordinates[2] / 50,
-        color: getColor(feature.properties.sig),
-        fillColor: getColor(feature.properties.sig),
-        radius: Math.sqrt(feature.properties.sig)
+        fillOpacity: feature.geometry.coordinates[2] /30,
+        color: getColor(feature.geometry.coordinates[2]),
+        fillColor: getColor(feature.geometry.coordinates[2]),
+        radius: Math.sqrt(feature.properties.mag)*5
     });
 }
 
@@ -134,8 +134,8 @@ var legend = L.control({ position: 'bottomright' });
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        labels = ['<h4>Earthquake <br> Intensity</h4>'],
-        grades = [0, 50, 100, 150, 200, 300, 400, 500];
+        labels = ['<h4>Earthquake <br> Depth</h4>'],
+        grades = [0, 10, 20, 30, 40, 50, 70, 90];
 
 
     // loop through our density intervals and generate a label with a colored square for each interval
